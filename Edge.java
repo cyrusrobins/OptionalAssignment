@@ -31,10 +31,16 @@ public class Edge {
 
     public boolean searchForLink(int v1, int v2){ //checks for the linking edge between 2 edges to avoid having an unnecessary edge
         for(Edge e: usedEdges){
-            if(e.v1 == v1 && e.v2 == v2)
-                return true;
-            else if(e.v1 == v2 && e.v2 == v1)
-                return true;
+            if(e.v1 == v1)
+                if(e.v2 == v2)
+                    return true;
+                else
+                    return searchForLink(e.v2,v2); //recursively check for the linking member needed if one of the vertices matches, which would create a larger cycle
+            else if(e.v1 == v2)
+                if(e.v2 == v1)
+                    return true;
+                else
+                    return searchForLink(e.v2,v1);
         }
         return false;
     }
